@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prediksjon av Sykehusopphold</title>
+</head>
+<body>
+    <h1>Prediksjon av Sykehusopphold</h1>
+    
+    <form action="{{ url_for('predict') }}" method="post">
+        <label for="alder">Alder:</label>
+        <input type="number" id="alder" name="alder"><br><br>
+
+        <label for="utdanning">Utdanning:</label>
+        <input type="number" id="utdanning" name="utdanning"><br><br>
+
+        <label for="inntekt_$25-$50k">Inntekt $25-$50k:</label>
+        <input type="checkbox" id="inntekt_$25-$50k" name="inntekt_$25-$50k"><br><br>
+
+        <label for="inntekt_>$50k">Inntekt >$50k:</label>
+        <input type="checkbox" id="inntekt_>$50k" name="inntekt_>$50k"><br><br>
+
+        <label for="inntekt_under $11k">Inntekt under $11k:</label>
+        <input type="checkbox" id="inntekt_under $11k" name="inntekt_under $11k"><br><br>
+
+        <label for="kjønn_male">Kjønn (mann):</label>
+        <input type="checkbox" id="kjønn_male" name="kjønn_male"><br><br>
+
+        <label for="etnisitet_black">Etnisitet (svart):</label>
+        <input type="checkbox" id="etnisitet_black" name="etnisitet_black"><br><br>
+
+        <label for="etnisitet_hispanic">Etnisitet (hispanisk):</label>
+        <input type="checkbox" id="etnisitet_hispanic" name="etnisitet_hispanic"><br><br>
+
+        <label for="etnisitet_other">Etnisitet (annen):</label>
+        <input type="checkbox" id="etnisitet_other" name="etnisitet_other"><br><br>
+
+        <label for="etnisitet_white">Etnisitet (hvit):</label>
+        <input type="checkbox" id="etnisitet_white" name="etnisitet_white"><br><br>
+
+        <label for="sykehusdød">Sykehusdød:</label>
+        <input type="number" id="sykehusdød" name="sykehusdød"><br><br>
+
+        <label for="blodtrykk">Blodtrykk:</label>
+        <input type="number" id="blodtrykk" name="blodtrykk"><br><br>
+
+        <label for="hvite_blodlegemer">Hvite blodlegemer:</label>
+        <input type="number" id="hvite_blodlegemer" name="hvite_blodlegemer"><br><br>
+
+        <label for="hjertefrekvens">Hjertefrekvens:</label>
+        <input type="number" id="hjertefrekvens" name="hjertefrekvens"><br><br>
+
+        <label for="respirasjonsfrekvens">Respirasjonsfrekvens:</label>
+        <input type="number" id="respirasjonsfrekvens" name="respirasjonsfrekvens"><br><br>
+
+        <label for="kroppstemperatur">Kroppstemperatur:</label>
+        <input type="number" id="kroppstemperatur" name="kroppstemperatur"><br><br>
+
+        <label for="lungefunksjon">Lungefunksjon:</label>
+        <input type="number" id="lungefunksjon" name="lungefunksjon"><br><br>
+
+        <label for="serumalbumin">Serumalbumin:</label>
+        <input type="number" id="serumalbumin" name="serumalbumin"><br><br>
+
+        <label for="bilirubin">Bilirubin:</label>
+        <input type="number" id="bilirubin" name="bilirubin"><br><br>
+
+        <label for="kreatinin">Kreatinin:</label>
+        <input type="number" id="kreatinin" name="kreatinin"><br><br>
+
+        <label for="natrium">Natrium:</label>
+        <input type="number" id="natrium" name="natrium"><br><br>
+
+        <label for="blod_ph">Blod pH:</label>
+        <input type="number" id="blod_ph" name="blod_ph"><br><br>
+
+        <label for="glukose">Glukose:</label>
+        <input type="number" id="glukose" name="glukose"><br><br>
+
+        <label for="blodurea_nitrogen">Blodurea nitrogen:</label>
+        <input type="number" id="blodurea_nitrogen" name="blodurea_nitrogen"><br><br>
+
+        <label for="urinmengde">Urinmengde:</label>
+        <input type="number" id="urinmengde" name="urinmengde"><br><br>
+
+        <label for="dødsfall">Dødsfall:</label>
+        <input type="number" id="dødsfall" name="dødsfall"><br><br>
+
+        <label for="antall_komorbiditeter">Antall komorbiditeter:</label>
+        <input type="number" id="antall_komorbiditeter" name="antall_komorbiditeter"><br><br>
+
+        <label for="koma_score">Koma score:</label>
+        <input type="number" id="koma_score" name="koma_score"><br><br>
+
+        <label for="adl_pasient">ADL pasient:</label>
+        <input type="number" id="adl_pasient" name="adl_pasient"><br><br>
+
+        <label for="adl_stedfortreder">ADL stedfortreder:</label>
+        <input type="number" id="adl_stedfortreder" name="adl_stedfortreder"><br><br>
+
+        <label for="fysiologisk_score">Fysiologisk score:</label>
+        <input type="number" id="fysiologisk_score" name="fysiologisk_score"><br><br>
+
+        <label for="apache_fysiologisk_score">APACHE fysiologisk score:</label>
+        <input type="number" id="apache_fysiologisk_score" name="apache_fysiologisk_score"><br><br>
+
+        <label for="overlevelsesestimat_2mnd">Overlevelsesestimat 2mnd:</label>
+        <input type="number" id="overlevelsesestimat_2mnd" name="overlevelsesestimat_2mnd"><br><br>
+
+        <label for="overlevelsesestimat_6mnd">Overlevelsesestimat 6mnd:</label>
+        <input type="number" id="overlevelsesestimat_6mnd" name="overlevelsesestimat_6mnd"><br><br>
+
+        <label for="diabetes">Diabetes:</label>
+        <input type="number" id="diabetes" name="diabetes"><br><br>
+
+        <label for="demens">Demens:</label>
+        <input type="number" id="demens" name="demens"><br><br>
+
+        <label for="lege_overlevelsesestimat_2mnd">Lege overlevelsesestimat 2mnd:</label>
+        <input type="number" id="lege_overlevelsesestimat_2mnd" name="lege_overlevelsesestimat_2mnd"><br><br>
+
+        <label for="lege_overlevelsesestimat_6mnd">Lege overlevelsesestimat 6mnd:</label>
+        <input type="number" id="lege_overlevelsesestimat_6mnd" name="lege_overlevelsesestimat_6mnd"><br><br>
+
+        <label for="dnr_dag">DNR dag:</label>
+        <input type="number" id="dnr_dag" name="dnr_dag"><br><br>
+
+        <h3>Sykdomskategorier:</h3>
+        <input type="checkbox" id="sykdomskategori_id_A1s" name="sykdomskategori_id_A1s">
+        <label for="sykdomskategori_id_A1s">A1s</label><br>
+
+        <input type="checkbox" id="sykdomskategori_id_BrY" name="sykdomskategori_id_BrY">
+        <label for="sykdomskategori_id_BrY">BrY</label><br>
+
+        <input type="checkbox" id="sykdomskategori_id_ChE" name="sykdomskategori_id_ChE">
+        <label for="sykdomskategori_id_ChE">ChE</label><br>
+
+        <input type="checkbox" id="sykdomskategori_id_DWw" name="sykdomskategori_id_DWw">
+        <label for="sykdomskategori_id_DWw">DWw</label><br>
+
+        <input type="checkbox" id="sykdomskategori_ARF/MOSF" name="sykdomskategori_ARF/MOSF">
+        <label for="sykdomskategori_ARF/MOSF">ARF/MOSF</label><br>
+
+        <input type="checkbox" id="sykdomskategori_COPD/CHF/Cirrhosis" name="sykdomskategori_COPD/CHF/Cirrhosis">
+        <label for="sykdomskategori_COPD/CHF/Cirrhosis">COPD/CHF/Cirrhosis</label><br>
+
+        <input type="checkbox" id="sykdomskategori_Cancer" name="sykdomskategori_Cancer">
+        <label for="sykdomskategori_Cancer">Cancer</label><br>
+
+        <input type="checkbox" id="sykdomskategori_Coma" name="sykdomskategori_Coma">
+        <label for="sykdomskategori_Coma">Coma</label><br>
+
+        <h3>Sykdom underkategorier:</h3>
+        <input type="checkbox" id="sykdom_underkategori_ARF/MOSF w/Sepsis" name="sykdom_underkategori_ARF/MOSF w/Sepsis">
+        <label for="sykdom_underkategori_ARF/MOSF w/Sepsis">ARF/MOSF w/Sepsis</label><br>
+
+        <input type="checkbox" id="sykdom_underkategori_CHF" name="sykdom_underkategori_CHF">
+        <label for="sykdom_underkategori_CHF">CHF</label><br>
+
+        <input type="checkbox" id="sykdom_underkategori_COPD" name="sykdom_underkategori_COPD">
+        <label for="sykdom_underkategori_COPD">COPD</label><br>
+
+        <input type="checkbox" id="sykdom_underkategori_Cirrhosis" name="sykdom_underkategori_Cirrhosis">
+        <label for="sykdom_underkategori_Cirrhosis">Cirrhosis</label><br>
+
+        <input type="checkbox" id="sykdom_underkategori_Colon Cancer" name="sykdom_underkategori_Colon Cancer">
+        <label for="sykdom_underkategori_Colon Cancer">Colon Cancer</label><br>
+
+        <input type="checkbox" id="sykdom_underkategori_Coma" name="sykdom_underkategori_Coma">
+        <label for="sykdom_underkategori_Coma">Coma</label><br>
+
+        <input type="checkbox" id="sykdom_underkategori_Lung Cancer" name="sykdom_underkategori_Lung Cancer">
+        <label for="sykdom_underkategori_Lung Cancer">Lung Cancer</label><br>
+
+        <input type="checkbox" id="sykdom_underkategori_MOSF w/Malig" name="sykdom_underkategori_MOSF w/Malig">
+        <label for="sykdom_underkategori_MOSF w/Malig">MOSF w/Malig</label><br>
+
+        <h3>Kreft:</h3>
+        <input type="checkbox" id="kreft_metastatic" name="kreft_metastatic">
+        <label for="kreft_metastatic">Metastatic</label><br>
+
+        <input type="checkbox" id="kreft_no" name="kreft_no">
+        <label for="kreft_no">No</label><br>
+
+        <input type="checkbox" id="kreft_yes" name="kreft_yes">
+        <label for="kreft_yes">Yes</label><br>
+
+        <h3>DNR Status:</h3>
+        <input type="checkbox" id="dnr_status_dnr før innleggelse" name="dnr_status_dnr før innleggelse">
+        <label for="dnr_status_dnr før innleggelse">DNR før innleggelse</label><br>
+
+        <input type="checkbox" id="dnr_status_dnr ved innleggelse" name="dnr_status_dnr ved innleggelse">
+        <label for="dnr_status_dnr ved innleggelse">DNR ved innleggelse</label><br><br>
+
+        <input type="submit" value="Predict">
+    </form>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <div class="{{ category }}">{{ message }}</div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+
+    {% if prediction %}
+        <h2>{{ prediction }}</h2>
+    {% endif %}
+</body>
+</html>

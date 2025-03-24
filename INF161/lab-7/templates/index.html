@@ -1,0 +1,37 @@
+
+<!DOCTYPE html>
+<html lang="no">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Titanic Overlevelse Prediksjon</title>
+</head>
+<body>
+    <h1>Prediksjon av Titanic Overlevelse</h1>
+    <form action="/predict" method="POST">
+        <label for="Pclass">Klasse (1, 2, 3):</label>
+        <input type="text" id="Pclass" name="Pclass"><br><br>
+
+        <label for="Sex">Kjønn (male/female):</label>
+        <input type="text" id="Sex" name="Sex"><br><br>
+
+        <label for="Age">Alder:</label>
+        <input type="text" id="Age" name="Age"><br><br>
+
+        <label for="SibSp">Søsken/Ektefelle ombord:</label>
+        <input type="text" id="SibSp" name="SibSp"><br><br>
+
+        <label for="Parch">Foreldre/Barn ombord:</label>
+        <input type="text" id="Parch" name="Parch"><br><br>
+
+        <label for="Fare">Billettpris:</label>
+        <input type="text" id="Fare" name="Fare"><br><br>
+
+        <input type="submit" value="Predict">
+    </form>
+
+    {% if prediction %}
+        <h2>Prediksjon: {{ prediction }}</h2>
+    {% endif %}
+</body>
+</html>
