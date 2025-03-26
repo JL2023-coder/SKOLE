@@ -2,8 +2,8 @@
 import sqlite3
 import csv
 
-path_db = "OBLIG-1/bysykkel.db"
-path_csv = "OBLIG-1/bysykkel.csv"
+path_db = "bysykkel.db"
+path_csv = "bysykkel.csv"
 con = sqlite3.connect(path_db)
 cur = con.cursor()
 
@@ -55,30 +55,32 @@ def get_all_values_in_row(index, attributes):
     nyeAt= []
     head = read_CSV()
     i = 1
-    run = True
     for i in range(0,len(head[0])):
         if head[0][i] in attributes:
             nyeAt.append(head[0][i])
             values.append(head[index][i])
     return tuple((nyeAt,values))
 
+def get_rows():
+    head = read_CSV()
+    return len(head[0])
+
+
 
 def insert_to_table(table):
     columns = get_attribute_from_table(table)
-    print(len(columns))
     columns = formatter_a(columns)
 
-    size = len(get_all_values_in_row(0, columns))
+    size = get_rows()
     row_index = 1
-    print(size)
     while row_index < size:
         try:
             # List of attributes to be inserted
-            attributes_to_be_inserted = get_all_values_in_row(row_index, get_attribute_from_table("user"))[0]
+            attributes_to_be_inserted = get_all_values_in_row(row_index, get_attribute_from_table(f"{table}"))[0]
             # Change to correct format for insertion
             attributes_to_be_inserted = formatter_a(attributes_to_be_inserted)
             # List of attributes to be inserted
-            values_to_be_inserted = get_all_values_in_row(row_index, get_attribute_from_table("user"))[1]
+            values_to_be_inserted = get_all_values_in_row(row_index, get_attribute_from_table(f"{table}"))[1]
             # Change to correct format for insertion
             values_to_be_inserted =formatter_v(values_to_be_inserted)
 
@@ -90,4 +92,11 @@ def insert_to_table(table):
             pass
         row_index += 1
 
-insert_to_table("user")
+def insert_to_all_tables():
+    tables = get_tables()
+    for t in tables:
+        insert_to_table(f"\"{t}\"")
+
+#insert_to_all_tables()
+
+insert_to_table("bike")
