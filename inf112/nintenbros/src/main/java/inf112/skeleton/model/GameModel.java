@@ -7,9 +7,11 @@ import inf112.skeleton.view.*;
 public class GameModel implements ControllableModel, ViewableModel {
     private GameCharacter player;
     private GameBoard board;
+    // Set start spawn to 150
+    private float spawnPointXPos = 150;
 
     public GameModel(){
-        this.player = new GameCharacter(150f, 280f, 48f, 64f);
+        this.player = new GameCharacter(spawnPointXPos, 280f, 48f, 64f);
         board = new GameBoard(20, 30);
     }
 
@@ -19,8 +21,23 @@ public class GameModel implements ControllableModel, ViewableModel {
     }
 
     @Override
-    public GameCharacter getPlayer() {
-        return player;
+    public float getPlayerXPos(){
+        return player.getXPos();
+    }
+
+    @Override
+    public float getPlayerYPos(){
+        return player.getYPos();
+    }
+
+    @Override
+    public float getPlayerWidth(){
+        return player.getWidth();
+    }
+
+    @Override
+    public float getPlayerHeight(){
+        return player.getHeight();
     }
 
     @Override
@@ -31,5 +48,9 @@ public class GameModel implements ControllableModel, ViewableModel {
     @Override
     public void playerJump(){
         this.player.jump();
+    }
+
+    public float getSpawnPointXPos(){
+        return spawnPointXPos;
     }
 }

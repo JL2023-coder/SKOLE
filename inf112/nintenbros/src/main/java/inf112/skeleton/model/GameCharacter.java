@@ -19,8 +19,6 @@ public class GameCharacter {
     private float width;
     private float height;
 
-    private boolean test;
-
     public GameCharacter(float x, float y, float width, float height){
         this.xPos = x;
         this.yPos = y;
@@ -29,7 +27,6 @@ public class GameCharacter {
 
         this.yVel = 0;
         this.isGrounded = false;
-        this.test = false;
     }
 
     public float getXPos(){
@@ -43,9 +40,6 @@ public class GameCharacter {
     }
     public float getHeight(){
         return height;
-    }
-    private void isGrounded(boolean grounded){
-        this.isGrounded = grounded;
     }
 
     public void jump(){
@@ -69,15 +63,10 @@ public class GameCharacter {
     }
 
     private void collition(GameBoard board, Boolean checkSides){
-        int leftPos = (int) Math.floor(this.xPos / board.getCellSize());
-        int rightPos = (int) Math.floor((this.xPos + this.width) / board.getCellSize());
         int topPos = (int) Math.ceil((this.yPos + this.height) / board.getCellSize());
         int botPos = (int) Math.ceil((this.yPos) / board.getCellSize());
-
-        // System.err.println(leftPos);
-        // System.err.println(botPos);
-        // System.err.println(board.get(new CellPosition(board.rows() - botPos, leftPos)));
-        // System.err.println("----");
+        int leftPos = (int) Math.floor((this.xPos + 1) / board.getCellSize());
+        int rightPos = (int) Math.floor((this.xPos + this.width - 1) / board.getCellSize());
        
         if(checkSides){
             for (int cellY = botPos; cellY < topPos; cellY++) {
@@ -98,9 +87,6 @@ public class GameCharacter {
                 }
             }
         }else{
-            //---------------------
-            leftPos = (int) Math.floor((this.xPos + 1) / board.getCellSize());
-            rightPos = (int) Math.floor((this.xPos + this.width - 1) / board.getCellSize());
     
             this.isGrounded = false;
             for (int cellX = leftPos; cellX <= rightPos; cellX++) {

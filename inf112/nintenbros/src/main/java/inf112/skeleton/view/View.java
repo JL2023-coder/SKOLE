@@ -5,6 +5,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.maps.tiled.TiledMapTileLayer.Cell;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.ScreenUtils;
 
@@ -21,7 +22,6 @@ public class View {
     public View(ViewableModel model){
         this.model = model;
         this.shapeRenderer = new ShapeRenderer();
-        
     }
 
     public void render() {
@@ -38,13 +38,8 @@ public class View {
 
                 int x = col * cellSize;
                 int y = (gameBoard.rows() - row - 1) * cellSize;
-
-                // System.out.println("pos=" + pos);
-                // System.out.println("-----");
-                // System.out.println("value=" + gameBoard.get(pos));
-                // System.out.println("-----");
                 
-		        batch.draw(gameBoard.getTileBatch(gameBoard.get(pos)), x, y, cellSize, cellSize);
+		        batch.draw(gameBoard.getTileBatch(gameBoard.get(pos)), x - model.getPlayerXPos() + model.getSpawnPointXPos(), y, cellSize, cellSize);
             }
         }
         batch.end();
@@ -63,20 +58,16 @@ public class View {
         }
         shapeRenderer.end();
 
-        //-----------------------
-        
-        GameCharacter player = model.getPlayer();
-        
         shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
         shapeRenderer.setColor(Color.ORANGE);  // Set rectangle color
-        shapeRenderer.rect(player.getXPos(), player.getYPos(), player.getWidth(), player.getHeight()); // (x, y, width, height)
+        shapeRenderer.rect(model.getSpawnPointXPos(), model.getPlayerYPos(), model.getPlayerWidth(), model.getPlayerHeight()); // (x, y, width, height)
         shapeRenderer.end();
 
         //---------------------
 
         shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
         shapeRenderer.setColor(1, 0, 0, 1); // Red color
-        shapeRenderer.circle(player.getXPos(), player.getYPos(), 5);
+        shapeRenderer.circle(model.getSpawnPointXPos(), model.getPlayerYPos(), 5);
         shapeRenderer.end();
     }
 
@@ -84,3 +75,4 @@ public class View {
         shapeRenderer.dispose();
     }
 }
+
