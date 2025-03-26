@@ -63,7 +63,11 @@ def get_all_values_in_row(index, attributes):
 
 def get_rows():
     head = read_CSV()
-    return len(head[0])
+    count = 0
+    for line in head:
+        count += 1
+    return count
+
 
 
 
@@ -97,6 +101,7 @@ def insert_to_all_tables():
     for t in tables:
         insert_to_table(f"\"{t}\"")
 
-#insert_to_all_tables()
+insert_to_all_tables()
 
-insert_to_table("bike")
+#insert_to_table("start_station")
+
