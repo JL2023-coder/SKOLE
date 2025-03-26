@@ -89,7 +89,7 @@ def insert_to_table(table):
             values_to_be_inserted =formatter_v(values_to_be_inserted)
 
             print(f"INSERT INTO {table} ({attributes_to_be_inserted}) VALUES({values_to_be_inserted})")
-            cur.execute(f"INSERT INTO {table} ({attributes_to_be_inserted}) VALUES({values_to_be_inserted})")
+            cur.execute(f"INSERT INTO ? (?) VALUES(?)",(table,attributes_to_be_inserted,values_to_be_inserted))
 
             con.commit()
         except:
