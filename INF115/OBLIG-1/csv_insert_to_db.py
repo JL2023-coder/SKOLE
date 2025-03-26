@@ -16,7 +16,7 @@ def get_tables():
         result.append(t[0])
     return result
 
-def get_attribute_from_table(table):
+def get_attributes_from_table(table):
     attributes = []
     cur.execute(f"SELECT * FROM {table} LIMIT 1;")
     for attribute in cur.description:
@@ -72,7 +72,7 @@ def get_rows():
 
 
 def insert_to_table(table):
-    columns = get_attribute_from_table(table)
+    columns = get_attributes_from_table(table)
     columns = formatter_a(columns)
 
     size = get_rows()
@@ -80,11 +80,11 @@ def insert_to_table(table):
     while row_index < size:
         try:
             # List of attributes to be inserted
-            attributes_to_be_inserted = get_all_values_in_row(row_index, get_attribute_from_table(f"{table}"))[0]
+            attributes_to_be_inserted = get_all_values_in_row(row_index, get_attributes_from_table(f"{table}"))[0]
             # Change to correct format for insertion
             attributes_to_be_inserted = formatter_a(attributes_to_be_inserted)
             # List of attributes to be inserted
-            values_to_be_inserted = get_all_values_in_row(row_index, get_attribute_from_table(f"{table}"))[1]
+            values_to_be_inserted = get_all_values_in_row(row_index, get_attributes_from_table(f"{table}"))[1]
             # Change to correct format for insertion
             values_to_be_inserted =formatter_v(values_to_be_inserted)
 
