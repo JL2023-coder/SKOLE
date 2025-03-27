@@ -22,30 +22,30 @@ def get_attributes_from_table(table):
         attributes.append(attribute[0])
     return attributes
 
-def convert_value(value, column_name):
+def get_column_types(table):
+    types = {}
+    cur.execute(f"PRAGMA table_info({table});")
+    for col in cur.fetchall():
+        types[col[1]] = col[2].upper()  # col[1] is name, col[2] is type
+    return types
+
+def convert_value(value, sqlite_type):
     if value == '':
         return None
     
-    # Handle numeric types
-    if 'id' in column_name or 'spots' in column_name:
-        try:
+    try:
+        if sqlite_type == 'INTEGER':
             return int(value)
-        except ValueError:
-            return None
-    
-    # Handle float types
-    if 'latitude' in column_name or 'longitude' in column_name:
-        try:
+        elif sqlite_type == 'REAL':
             return float(value)
-        except ValueError:
-            return None
-    
-    # Handle datetime types
-    if 'time' in column_name:
-        return value
-    
-    # Handle string types (default)
-    return str(value)
+        elif sqlite_type == 'TEXT':
+            return str(value)
+        elif sqlite_type == 'DATETIME':
+            return value
+        else:
+            return str(value)  # Default to string for unknown types
+    except ValueError:
+        return None
 
 def formatter(attributes):
     streng = ""
@@ -65,11 +65,18 @@ def get_all_values_in_row(index, attributes):
     values = []
     nyeAt = []
     head = read_CSV()
+    
+    # Get the table name from the first attribute (assuming it's in format table.column)
+    table_name = attributes[0].split('.')[0]
+    column_types = get_column_types(table_name)
+    
     for i in range(0, len(head[0])):
         if head[0][i] in attributes:
             nyeAt.append(head[0][i])
-            # Convert the value based on the column name
-            value = convert_value(head[index][i], head[0][i])
+            # Get the SQLite type for this column
+            sqlite_type = column_types.get(head[0][i], 'TEXT')
+            # Convert the value based on the SQLite type
+            value = convert_value(head[index][i], sqlite_type)
             values.append(value)
     return tuple((nyeAt, values))
 
