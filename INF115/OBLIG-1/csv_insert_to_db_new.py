@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 import sqlite3
 import csv
 
@@ -127,6 +128,11 @@ def insert_to_all_tables():
         insert_to_table(f"\"{t}\"")
 
 if __name__ == "__main__":
-    insert_to_all_tables()
-    input("\nPress Enter to exit...")
+    try:
+        insert_to_all_tables()
+        print("\nInserting completed successfully!")
+    except Exception as e:
+        print(f"\nAn error occurred: {str(e)}")
+    finally:
+        input("\nPress Enter to exit...")  
 
