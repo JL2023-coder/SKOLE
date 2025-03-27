@@ -3,6 +3,9 @@ import sqlite3
 import csv
 import os
 
+# If it was not downloaded directly from git, it may not have preserved the executable 
+# permission. You can run the following command to give it the permission: 
+# "chmod +x csv_insert_to_db_new.py" in the terminal
 
 #This script reads a CSV file and inserts the values into a SQLite database.
 # It assumes that the CSV file has a header with with the colum names, 
