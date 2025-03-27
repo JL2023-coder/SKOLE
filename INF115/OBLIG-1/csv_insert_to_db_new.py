@@ -175,5 +175,6 @@ if __name__ == "__main__":
     except Exception as e:
         print(f"\nAn error occurred: {str(e)}")
     finally:
+        print("This script was made by @jolil6835@uib.no")
         input("\nPress Enter to exit...")  
 
