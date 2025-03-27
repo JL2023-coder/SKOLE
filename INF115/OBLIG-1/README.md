@@ -1,13 +1,13 @@
-### csv2db This script imports CSV data into an SQLite database.
-
-#### Download it from git, you can also download the python code, in the folder "/python_code".
+# csv2db  
+This script imports CSV data into an SQLite database.
+Download the script from GitHub. You can also find the Python source code in the `/python_code` folder.
 
 ## Before you run
-The script reads a CSV file and inserts the values into a SQLite database. It assumes that the CSV file has a header with the column names, if not you can add this manually. It also assumes that the SQLite database has tables with the same names as the CSV columns.
+The script reads a CSV file and inserts the values into an SQLite database. It assumes that the CSV file has a header row with column names. If it does not, you will need to add these manually. The script also assumes that the SQLite database contains tables matching the CSV column names.
 
 ## How to run
-You can either run it from ther terminal, or directly left double-click it. 
-When you run you will be asked to firstly give the path to the db relative from where you have run the script aswell as the relative path to the csv file. If you do not know the relative path to your respective files, you can run the script from the same directory as you have your .db and .csv files. 
+You can either run the script from the terminal or by double-clicking it with the left mouse button.
+When you run the script, you will first be asked to provide the path to the database (`.db`) file, relative to the script’s location, as well as the relative path to the CSV file. If you are unsure of the relative paths, you can run the script from the same directory as your `.db` and `.csv` files.
 
-Lastly you can press enter to exit the script after the values has been inserted to the database.
+Finally, press Enter to exit the script after the values have been inserted into the database.
 
