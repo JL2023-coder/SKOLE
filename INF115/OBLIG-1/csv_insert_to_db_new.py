@@ -2,11 +2,22 @@
 import sqlite3
 import csv
 
+
+#This script reads a CSV file and inserts the values into a SQLite database.
+# It assumes that the CSV file has a header with with the colum names, 
+# if not you can add this manually. It also ssumes that the SQLite database has
+# tables with the same names as the CSV columns.
+# Lastly you will either need to change the path to the CSV file and the path of
+# the database to match your own file paths. 
+
+# Database path
 path_db = "bysykkel_new.db"
+# CSV file path
 path_csv = "bysykkel.csv"
 con = sqlite3.connect(path_db)
 cur = con.cursor()
 
+# Get all tables in the database
 def get_tables():
     result = []
     cur.execute("SELECT name FROM sqlite_master WHERE type='table';")
@@ -16,6 +27,7 @@ def get_tables():
         result.append(t[0])
     return result
 
+# Get the attributes from a table
 def get_attributes_from_table(table):
     attributes = []
     cur.execute(f"SELECT * FROM {table} LIMIT 1;")
@@ -23,11 +35,13 @@ def get_attributes_from_table(table):
         attributes.append(attribute[0])
     return attributes
 
+# Get the column names and types for a table
 def get_column_types(table):
     types = {}
     cur.execute(f"PRAGMA table_info({table});")
     for col in cur.fetchall():
-        types[col[1]] = col[2].upper()  # col[1] is name, col[2] is type
+        # col[1] is name, col[2] is type
+        types[col[1]] = col[2].upper()
     return types
 
 def convert_value(value, sqlite_type):
@@ -44,7 +58,8 @@ def convert_value(value, sqlite_type):
         elif sqlite_type == 'DATETIME':
             return value
         else:
-            return str(value)  # Default to string for unknown types
+            # Default to string for unknown types
+            return str(value) 
     except ValueError:
         return None
 
@@ -81,6 +96,7 @@ def get_all_values_in_row(index, attributes):
             values.append(value)
     return tuple((nyeAt, values))
 
+# Get number of rows in the CSV file
 def get_rows():
     head = read_CSV()
     count = 0
@@ -88,9 +104,7 @@ def get_rows():
         count += 1
     return count
 
-
-
-
+# Insert all rows containing values from the CSV file to the table
 def insert_to_table(table):
     columns = get_attributes_from_table(table)
     columns = formatter(columns)
@@ -122,11 +136,14 @@ def insert_to_table(table):
             print(f"Values: {values}")  # Print the values for debugging
         row_index += 1
 
+# Inserts all values from the CSV file to theire respected table in the database
 def insert_to_all_tables():
     tables = get_tables()
     for t in tables:
         insert_to_table(f"\"{t}\"")
 
+# Main function
+# Can run from terminal or as a script
 if __name__ == "__main__":
     try:
         insert_to_all_tables()
