@@ -26,20 +26,10 @@ def get_attributes_from_table(table):
 def convert_to_string(value):
     return str(value)
 
-def formatter_a(attributes):
+def formatter(attributes):
     streng = ""
     for attribute in attributes:
-        streng += attribute +","
-    return streng[:-1]
-
-def formatter_v(attributes):
-    streng = ""
-    for attribute in attributes:
-        try: 
-            a = int(attribute)
-            streng += attribute +","
-        except:
-            streng += f"\"{attribute}\"" + ","
+         streng += f"\"{attribute}\"" + ","
     return streng[:-1]
 
 def read_CSV():
@@ -73,7 +63,7 @@ def get_rows():
 
 def insert_to_table(table):
     columns = get_attributes_from_table(table)
-    columns = formatter_a(columns)
+    columns = formatter(columns)
 
     size = get_rows()
     row_index = 1
@@ -82,11 +72,11 @@ def insert_to_table(table):
             # List of attributes to be inserted
             attributes_to_be_inserted = get_all_values_in_row(row_index, get_attributes_from_table(f"{table}"))[0]
             # Change to correct format for insertion
-            attributes_to_be_inserted = formatter_a(attributes_to_be_inserted)
+            attributes_to_be_inserted = formatter(attributes_to_be_inserted)
             # List of attributes to be inserted
             values_to_be_inserted = get_all_values_in_row(row_index, get_attributes_from_table(f"{table}"))[1]
             # Change to correct format for insertion
-            values_to_be_inserted =formatter_v(values_to_be_inserted)
+            values_to_be_inserted =formatter(values_to_be_inserted)
 
             print(f"INSERT INTO {table} ({attributes_to_be_inserted}) VALUES({values_to_be_inserted})")
             cur.execute(f"INSERT INTO {table} ({attributes_to_be_inserted}) VALUES({values_to_be_inserted})")
