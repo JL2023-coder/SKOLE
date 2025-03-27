@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 import sqlite3
 import csv
+import os
 
 
 #This script reads a CSV file and inserts the values into a SQLite database.
@@ -9,6 +10,15 @@ import csv
 # tables with the same names as the CSV columns.
 # Lastly you will either need to change the path to the CSV file and the path of
 # the database to match your own file paths. 
+
+# Get valid path for database and CSV file
+# Checks if path is valid
+def get_valid_path(prompt, file_extension):
+    while True:
+        path = input(prompt)
+        if os.path.exists(path) and path.endswith(file_extension):
+            return path
+        print(f"Error: File not found or wrong file type. Please check that the file exists and is a {file_extension} file.")
 
 # Database path
 path_db = "bysykkel_new.db"
@@ -145,9 +155,20 @@ def insert_to_all_tables():
 # Main function
 # Can run from terminal or as a script
 if __name__ == "__main__":
+    # Get paths when running as main script
+    print("Please enter the full path to your files:")
+    path_db = get_valid_path("Path to database (.db): ", ".db")
+    path_csv = get_valid_path("Path to CSV file (.csv): ", ".csv")
+
+    print(f"\nUsing the following files:")
+    print(f"Database: {path_db}")
+    print(f"CSV file: {path_csv}")
+
     try:
+        con = sqlite3.connect(path_db)
+        cur = con.cursor()
         insert_to_all_tables()
-        print("\nInserting completed successfully!")
+        print("\nInsertion completed successfully!")
     except Exception as e:
         print(f"\nAn error occurred: {str(e)}")
     finally:
