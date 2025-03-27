@@ -1,8 +1,8 @@
 import sqlite3
 import csv
 
-path_db = "test/bysykkel.db"
-path_csv = "test/bysykkel.csv"
+path_db = "bysykkel.db"
+path_csv = "bysykkel.csv"
 con = sqlite3.connect(path_db)
 cur = con.cursor()
 
@@ -126,7 +126,6 @@ def insert_to_all_tables():
     for t in tables:
         insert_to_table(f"\"{t}\"")
 
-insert_to_all_tables()
-
-#insert_to_table("start_station")
+if __name__ == "__main__":
+    insert_to_all_tables()
 
