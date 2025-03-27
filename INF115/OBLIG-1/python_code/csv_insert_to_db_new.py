@@ -24,11 +24,15 @@ def get_valid_path(prompt, file_extension):
         print(f"Error: File not found or wrong file type. Please check that the file exists and is a {file_extension} file.")
 
 # Database path
-path_db = "bysykkel_new.db"
+# If you want to run python in in vscode 
+# and add paths directly to the py script 
+# you can uncomment the following lines
+
+# #path_db = "bysykkel_new.db"
 # CSV file path
-path_csv = "bysykkel.csv"
-con = sqlite3.connect(path_db)
-cur = con.cursor()
+#path_csv = "bysykkel.csv"
+#con = sqlite3.connect(path_db)
+#cur = con.cursor()
 
 # Get all tables in the database
 def get_tables():
