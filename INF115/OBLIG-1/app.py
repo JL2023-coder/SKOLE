@@ -1,12 +1,29 @@
-from shiny import App, ui, render
+import sqlite3
 import pandas as pd
 
+from shiny import App, ui, render
+
+
+def getTable(table_name):
+    # Open connection to database
+    con = sqlite3.connect('bysykkel.db')
+
+    # Use parameterized query to prevent SQL injection
+    query = "SELECT * FROM ?"
+    
+    # Execute query with the table name
+    df = pd.read_sql_query(query, con, params=(table_name))
+    
+    # Close the connection
+    con.close()
+
+    return df
+
+
+
+
 # Sample DataFrame
-user_df = pd.DataFrame({
-    "Name": ["Alice", "Bob", "Charlie"],
-    "Age": [25, 30, 35],
-    "City": ["New York", "Los Angeles", "Chicago"]
-})
+user_df = getTable("user")
 
 bike_df = pd.DataFrame({
     "Name": ["Alice", "Bob", "Charlie"],
