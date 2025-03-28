@@ -41,10 +41,19 @@ with ui.sidebar(bg="#f8f8f8"):
 
 ui.h1("BYSYKKEL DATABSE:)")
 @reactive.effect
-@reactive.event(input.user)
+@reactive.event(input.user, input.bike, input.subscription)
 @render.data_frame
 def render_table1():
+    # Determine which button was clicked
+    if input.user.is_clicked():
+        table_name = "user"
+    elif input.bike.is_clicked():
+        table_name = "bike"
+    elif input.subscription.is_clicked():
+        table_name = "subscription"
+    else:
+        return pd.DataFrame()  # Return empty dataframe if no button clicked
 
-    table_df = getTable()
+    table_df = getTable(table_name)
     return table_df
 
