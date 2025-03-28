@@ -1,6 +1,7 @@
 import sqlite3
 import pandas as pd
 
+from shiny import reactive
 from shiny.express import input, ui, render
 
 
@@ -24,17 +25,26 @@ def getTable(table_name):
     return df
 
 
+with ui.sidebar(bg="#f8f8f8"):  
+    "Sidebar" 
+    ui.input_action_button("user", "USER")  
+    ui.input_action_button("bike", "BIKE")
+    ui.input_action_button("subscription", "SUBSRIPTION")
 
-ui.input_selectize(  
-    "selectize",  
-    "Select options below:",  
-    {"user": "User Table", "bike": "Bike table", "subscription": "Subscription table"},   
-) 
+    @render.text()
+    @reactive.event(input.action_button)
+    def counter():
+        return f"{input.action_button()}" 
+
+"Main content"  
+
 
 ui.h1("BYSYKKEL DATABSE:)")
+@reactive.effect
+@reactive.event(input.user)
 @render.data_frame
 def render_table1():
-    inp = input.selectize()
-    table_df = getTable(inp)
+
+    table_df = getTable()
     return table_df
 
